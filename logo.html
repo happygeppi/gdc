@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GDC Logo</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      :root {
+        --gap: 3%;
+		
+		--stripeNum: 8;
+        --stripew: calc(100%/(2 * var(--stripeNum) - 1));
+
+        --grey: #555;
+        --orange: hsl(30, 80%, 50%);
+      }
+
+      body {
+        position: relative;
+        height: 100vh;
+      }
+
+      #container {
+        height: 100%;
+        aspect-ratio: 1/1;
+        position: absolute;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: var(--gap);
+      }
+
+      .shape {
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .fully-filled {
+        background: var(--orange);
+      }
+
+      .stripes {
+        background: repeating-linear-gradient(
+          45deg,
+          var(--orange),
+          var(--orange) var(--stripew),
+          #fff var(--stripew),
+          #fff calc(2 * var(--stripew))
+        );
+      }
+
+      .only-border {
+        border: calc(0.5 * var(--bw)) solid var(--orange);
+      }
+
+      .letter {
+        border: var(--bw) solid var(--grey);
+        position: relative;
+      }
+
+      #G::after {
+        content: "";
+        position: absolute;
+        width: var(--bw);
+        top: 0px;
+        right: calc(-1 * var(--bw));
+        height: calc(100% - var(--bw));
+        background: #fff;
+      }
+
+      #C::after {
+        content: "";
+        position: absolute;
+        width: calc(2 * var(--bw));
+        top: 0px;
+        right: calc(-1 * var(--bw));
+        height: 100%;
+        background: #fff;
+      }
+
+      .invis {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+  <script>
+    // fill: 0: grey, 1: orange, 2: orange stripes, 3: orange border
+    const shapes = [
+      "none",
+      "none",
+      {
+        br: [0, 1, 0, 1],
+        fill: 1,
+        letter: false,
+      },
+      {
+        br: [1, 0, 0, 1],
+        fill: 0,
+        letter: "G",
+      },
+      {
+        br: [0, 1, 0, 0],
+        fill: 0,
+        letter: "D",
+      },
+      {
+        br: [1, 0, 1, 0],
+        fill: 0,
+        letter: "C",
+      },
+      {
+        br: [1, 0, 0, 1],
+        fill: 3,
+        letter: false,
+      },
+      {
+        br: [0, 0, 1, 0],
+        fill: 2,
+        letter: false,
+      },
+      "none",
+    ];
+
+    const br = 40;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      SetBw();
+      CreateShapes();
+    });
+	
+	function SetBw() {
+	  document
+        .querySelector(":root")
+        .style.setProperty("--bw", `${innerHeight / 15}px`);
+	  if (innerHeight == 0) setTimeout(SetBw, 100);
+	}
+
+    function CreateShapes() {
+      for (const shape of shapes) {
+        const Shape = document.createElement("div");
+        Shape.classList.add("shape");
+        document.getElementById("container").append(Shape);
+
+        if (shape == "none") {
+          Shape.classList.add("invis");
+        } else {
+          Shape.style.borderRadius = BorderRadius(shape.br);
+          if (!shape.letter == false) {
+            Shape.classList.add("letter");
+            Shape.id = shape.letter;
+          } else {
+            if (shape.fill == 1) Shape.classList.add("fully-filled");
+            if (shape.fill == 2) Shape.classList.add("stripes");
+            if (shape.fill == 3) Shape.classList.add("only-border");
+          }
+        }
+      }
+    }
+
+    const BorderRadius = (b) =>
+      `${b[0] * br}% ${b[1] * br}% ${b[2] * br}% ${b[3] * br}%`;
+
+    // CreateShapes();
+  </script>
+</html>

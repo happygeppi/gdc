@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="logoScharf.png" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="welcome.css" />
+    <script src="create.js" defer></script>
+  </head>
+  <body>
+    <div id="container">
+      <main id="main-page">
+        <div id="main-container">
+          <div class="gallery no-margin">
+            <img
+              src="https://cms.sachsen.schule/fileadmin/_processed_/c/a/csm_start_5_1_dd408271a6.jpg"
+              alt=""
+            />
+            <img
+              src="https://cms.sachsen.schule/fileadmin/_processed_/e/1/csm_start_5_2_eaeedce78f.jpg"
+              alt=""
+            />
+          </div>
+          <p>
+            Zu Schuljahresbeginn begr&uuml;&szlig;en wir alle unsere
+            Sch&uuml;lerinnen und Sch&uuml;ler &ndash; besonders herzlich die
+            sechs neuen 5. Klassen. Viel Erfolg und Freude beim Lernen!
+          </p>
+          <div id="links">
+            <a href="">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4744/4744824.png"
+                alt=""
+                srcset=""
+              />
+              <span>Vertretungsplan</span>
+            </a>
+            <a href="">
+              <img src="https://svgsilh.com/svg/1332774.svg" alt="" srcset="" />
+              <span>Elterninformationen</span>
+            </a>
+            <a href="">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5439/5439023.png"
+                alt=""
+              />
+              <span>Kontakt zum GDC</span>
+            </a>
+            <a href="">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Noun_Project_people_icon_3376085.svg"
+                alt=""
+              />
+              <span> Ansprechpartnerinnen &amp; Ansprechpartner </span>
+            </a>
+          </div>
+        </div>
+        <section id="news">
+          <div id="news-header">
+            <h2>Neuigkeiten</h2>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      const news = [
+        {
+          title: "Herbstferienangebote Schulsozialarbeit",
+          subtitle: "Schnell noch anmelden!",
+          date: "13.10.2022",
+          link: "",
+        },
+        {
+          title: "Ganztagsangebote",
+          subtitle: "die Einwahl beginnt, alle geplanten Termine gibt es hier",
+          date: "16.09.2022",
+          link: "",
+        },
+        {
+          title: "Angebote des Staatsschauspiels",
+          subtitle: "für Interessierte",
+          date: "16.09.2022",
+          link: "",
+        },
+        {
+          title: "Schreibwettbewerb des TJG",
+          subtitle: "Mach mit!",
+          date: "16.09.2022",
+          link: "",
+        },
+      ];
+
+      function CreateNews() {
+        for (const item of news) {
+          const Item = document.createElement("a");
+          Item.classList.add("news-item");
+          Item.href = item.link;
+          document.getElementById("news").append(Item);
+
+          const Title = document.createElement("p");
+          Title.classList.add("news-title");
+          Title.innerHTML = item.title;
+          Item.append(Title);
+
+          const Subtitle = document.createElement("p");
+          Subtitle.classList.add("news-subtitle");
+          Subtitle.innerHTML = item.subtitle;
+          Item.append(Subtitle);
+
+          const Date = document.createElement("p");
+          Date.classList.add("news-date");
+          Date.innerHTML = item.date;
+          Item.append(Date);
+        }
+      }
+
+      CreateNews();
+    </script>
+  </body>
+</html>
